@@ -1,24 +1,30 @@
 package com.nagare;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import com.nagare.function.BiFunc;
-import com.nagare.function.BiSpender;
 import com.nagare.function.Func;
-import com.nagare.function.Spender;
+import com.nagare.function.PairSaver;
+import com.nagare.function.Saver;
 
+/**
+ * @author ken.murayama
+ *
+ */
 public class Do {
-    public static <T, R> Func<T, R>  first(Func<T, R> f) {
+    public static <X, A> Func<X, A>  first(Func<X, A> f) {
         return f;
     }
 
-    public static <T, U, R> BiFunc<T, U, R>  first(BiFunc<T, U, R> f) {
+    public static <X, Y, A> BiFunc<X, Y, A>  first(BiFunc<X, Y, A> f) {
         return f;
     }
 
-    public static <T> Spender<T>  first(Spender<T> f) {
-        return f;
+    public static <A> Saver<A> when(A a) {
+        return () -> a;
     }
 
-    public static <T, U> BiSpender<T, U>  first(BiSpender<T, U> f) {
-        return f;
+    public static <L, R> PairSaver<L, R> when(L l, R r) {
+        return () -> ImmutablePair.of(l, r);
     }
 }

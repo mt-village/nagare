@@ -1,5 +1,5 @@
 # nagare
 fluent interface for java.
-"nagare" means "flow"
-support only java8
-depends on commons-lang3
+"nagare" means "flow".
+supports later java8.
+depends on commons-lang3.

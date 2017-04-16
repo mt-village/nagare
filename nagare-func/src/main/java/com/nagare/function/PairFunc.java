@@ -4,16 +4,20 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * @author ken.murayama
+ *
+ */
 @FunctionalInterface
-public interface PairFunc <T, U, L, R> {
+public interface PairFunc <X, Y, L, R> {
 
-    Pair<L, R> apply(T t, U u);
+    Pair<L, R> apply(X x, Y y);
 
-    default <W> BiFunc<T, U, W> then(BiFunc<? super L, ? super R, ? extends W> after) {
+    default <A> BiFunc<X, Y, A> then(BiFunc<? super L, ? super R, ? extends A> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> {
-            Pair<L, R> pair = apply(t, u);
-            return after.apply(pair.getLeft(), pair.getRight());
+        return (X x, Y y) -> {
+            Pair<L, R> p = apply(x, y);
+            return after.apply(p.getLeft(), p.getRight());
         };
     }
 }

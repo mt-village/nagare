@@ -1,41 +1,42 @@
 package com.nagare.function;
 
 import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 
+/**
+ * @author ken.murayama
+ * @see Consumer
+ *
+ */
 @FunctionalInterface
-public interface Spender<T> {
+public interface Spender<X> {
 
-    void accept(T t);
+    void accept(X x);
 
     /**
      * {@link #accept(Object)}
      */
-    default void by(T t) {
-        accept(t);
+    default void by(X x) {
+        accept(x);
     }
 
-    default <U> BiSpender<T, U> and(Spender<? super U> after) {
+    default <Y> BiSpender<X, Y> and(Spender<? super Y> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> {
-            accept(t);
-            after.accept(u);
+        return (X x, Y y) -> {
+            accept(x);
+            after.accept(y);
         };
     }
 
-    default Spender<T> then(Spender<? super T> after) {
+    default Spender<X> then(Spender<? super X> after) {
         Objects.requireNonNull(after);
-        return (T t) -> {
-            accept(t);
-            after.accept(t);
+        return (X x) -> {
+            accept(x);
+            after.accept(x);
         };
     }
 
-    default <R> Func<T, R> then(Supplier<R> after) {
-        Objects.requireNonNull(after);
-        return (T t) -> {
-            accept(t);
-            return after.get();
-        };
+    default Consumer<X> origin() {
+        return (X x) -> accept(x);
     }
 }

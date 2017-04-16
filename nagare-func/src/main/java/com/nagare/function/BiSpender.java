@@ -1,41 +1,34 @@
 package com.nagare.function;
 
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
+/**
+ * @author ken.murayama
+ * @see BiConsumer
+ *
+ */
 @FunctionalInterface
-public interface BiSpender<T, U> {
+public interface BiSpender<X, Y> {
 
-    void accept(T t, U u);
+    void accept(X x, Y y);
 
     /**
      * {@link #accept(Object, Object)}
      */
-    default void by(T t, U u) {
-        accept(t, u);
+    default void by(X x, Y y) {
+        accept(x, y);
     }
 
-    default BiSpender<T, U> then(BiSpender<? super T, ? super U> after) {
+    default BiSpender<X, Y> then(BiSpender<? super X, ? super Y> after) {
         Objects.requireNonNull(after);
-        return (l, r) -> {
-            accept(l, r);
-            after.accept(l, r);
+        return (X x, Y y) -> {
+            accept(x, y);
+            after.accept(x, y);
         };
     }
 
-    default BiSpender<T, U> then(Spender<? super T> after) {
-        Objects.requireNonNull(after);
-        return (l, r) -> {
-            accept(l, r);
-            after.accept(l);
-        };
-    }
-
-    default BiSpender<T, U> then(Consumer<? super U> after) {
-        Objects.requireNonNull(after);
-        return (l, r) -> {
-            accept(l, r);
-            after.accept(r);
-        };
+    default BiConsumer<X, Y> origin() {
+        return (X x, Y y) -> accept(x, y);
     }
 }

@@ -1,33 +1,35 @@
 package com.nagare.function;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
 
 /**
  * @author ken.murayama
+ * @see BiFunction
  *
  */
 @FunctionalInterface
-public interface BiFunc<T, U, R> {
+public interface BiFunc<X, Y, A> {
 
-    R apply(T t, U u);
+    A apply(X x, Y y);
 
     /**
      * {@link #apply(Object, Object)}
      */
-    default R by(T t, U u) {
-        return apply(t, u);
+    default A by(X x, Y y) {
+        return apply(x, y);
     }
 
-    default <V> BiFunc<T, U, V> then(Func<? super R, ? extends V> after) {
+    default <B> BiFunc<X, Y, B> then(Func<? super A, ? extends B> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (X x, Y y) -> after.apply(apply(x, y));
     }
 
-    default Func<U, R> curry(T t) {
-        return (U u) -> apply(t, u);
+    default BiSpender<X, Y> done(Spender<? super A> after) {
+        return (X x, Y y) -> after.accept(apply(x, y));
     }
 
-    default Func<T, R> curryRight(U u) {
-        return (T t) -> apply(t, u);
+    default BiFunction<X, Y, A> origin() {
+        return (X x, Y y) -> apply(x, y);
     }
 }
