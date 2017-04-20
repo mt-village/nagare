@@ -9,10 +9,10 @@ public class IfTest {
     @Test
     public void test() {
         Predicate<String> testee = s -> s.length() == 4;
-//        String s = If.correct(testee.test("piy"))
-//                .then("is true")
-//                .orElse("is false");
-//        System.out.println(s);
+        String s = If.correct(testee.test("piy"))
+                .then("is true")
+                .orElse("is false");
+        System.out.println(s);
 
         int[] a = {1,2};
         int i = 3;
@@ -20,7 +20,7 @@ public class IfTest {
         System.out.println("length = " + a.length);
         int result = If.correct(i < a.length).then(() ->a[i]).orElse(() ->-1).get();
         System.out.println(result);
-        result = If.correct(i < a.length)
+        result = If.correct(i > a.length)
                 .then(() -> -1)
                 .orElse(() -> a[i])
                 .get();
