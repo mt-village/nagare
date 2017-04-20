@@ -6,5 +6,5 @@ package com.nagare.tertiary;
  */
 @FunctionalInterface
 public interface Else<A> {
-    A orElse(A a1);
+    A orElse(A a2);
 }
