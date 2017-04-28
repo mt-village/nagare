@@ -46,15 +46,6 @@ public class Examples {
     }
 
     @Test
-    public void nagare_postpositive() {
-        CoffeeAddict saya = new CoffeeAddict();
-        Do.first(Mill::grind).and(Kettle::boil)
-                .then(Dripper::drip)
-                .done(saya::drink)
-                .by(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500));
-    }
-
-    @Test
     public void nagare_logic_and_exec() {
         Saver<Coffee> brewCoffee = Do.when(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500))
                 .then(Do.first(Mill::grind).and(Kettle::boil))

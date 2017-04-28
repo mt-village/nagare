@@ -38,12 +38,6 @@ public interface PairSaver<L, R> {
         return () -> pf.apply(p.getLeft(), p.getRight());
     }
 
-    default <A> A let(BiFunc<? super L, ? super R, ? extends A> bf) {
-        Objects.requireNonNull(bf);
-        Pair<L, R> p = get();
-        return bf.apply(p.getLeft(), p.getRight());
-    }
-
     default void done(BiSpender<? super L, ? super R> bs) {
         Pair<L, R> p = get();
         bs.accept(p.getLeft(), p.getRight());

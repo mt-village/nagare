@@ -25,10 +25,6 @@ public interface BiFunc<X, Y, A> {
         return (X x, Y y) -> after.apply(apply(x, y));
     }
 
-    default BiSpender<X, Y> done(Spender<? super A> after) {
-        return (X x, Y y) -> after.accept(apply(x, y));
-    }
-
     default BiFunction<X, Y, A> origin() {
         return (X x, Y y) -> apply(x, y);
     }

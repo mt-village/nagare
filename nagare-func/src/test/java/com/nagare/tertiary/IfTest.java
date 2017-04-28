@@ -1,5 +1,6 @@
 package com.nagare.tertiary;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.junit.Test;
@@ -27,4 +28,18 @@ public class IfTest {
         System.out.println(result);
     }
 
+    public void test2() {
+        Function<Integer, String> a = new Function<Integer, String>() {
+            @Override
+            public String apply(Integer i) {
+                return i.toString();
+            }
+        };
+        System.out.println(a.apply(1));
+
+        Function<Integer, String> b = (Integer i) -> {
+            return i.toString();
+        };
+        System.out.println(b.apply(1));
+    }
 }

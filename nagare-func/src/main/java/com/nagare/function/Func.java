@@ -42,14 +42,6 @@ public interface Func<X, A> {
         return (Y y, X x) -> after.apply(y, apply(x));
     }
 
-    default Spender<X> done(Spender<? super A> after) {
-        return (X x) -> after.accept(apply(x));
-    }
-
-    default <Y> BiSpender<X, Y> done(BiSpender<? super A, ? super Y> after) {
-        return (X x, Y y) -> after.accept(apply(x), y);
-    }
-
     default Function<X, A> origin() {
         return (X x) -> apply(x);
     }
