@@ -4,8 +4,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.nagare.ex.ExPairSaver;
 import com.nagare.ex.ExSaver;
 import com.nagare.ex.ThrowableConsumer;
+import com.nagare.ex.ThrowableFunction;
 
 /**
  * @author ken.murayama
@@ -42,6 +46,18 @@ public interface Saver<A> {
                 @SuppressWarnings("unchecked")
                 Optional<E> oe =  Optional.of((E)e); // is type safe
                 return () -> oe;
+            }
+    }
+
+    default <B, E extends Exception> ExPairSaver<E, B> doTry(ThrowableFunction<? super A, B, E> f) {
+        Objects.requireNonNull(f);
+            try {
+                B res = f.apply(get());
+                return () -> Pair.of(Optional.empty(), res);
+            } catch (Exception e) {
+                @SuppressWarnings("unchecked")
+                Optional<E> oe =  Optional.of((E)e); // is type safe
+                return () -> Pair.of(oe, null);
             }
     }
 
