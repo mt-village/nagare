@@ -11,10 +11,10 @@ import java.util.function.Consumer;
 @FunctionalInterface
 public interface ExHandler<E extends Exception> {
 
-    Optional<E> get();
+    Optional<E> get(); // TODO
 
-    default void ifCatch(Consumer<E> handle) {
-        Objects.requireNonNull(handle);
-        get().ifPresent(handle);
+    default void ifCatch(Consumer<E> handler) {
+        Objects.requireNonNull(handler);
+        get().ifPresent(handler);
     }
 }

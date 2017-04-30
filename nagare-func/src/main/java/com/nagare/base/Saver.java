@@ -1,13 +1,10 @@
 package com.nagare.base;
 
 import java.util.Objects;
-import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.nagare.throwable.ExHandler;
-import com.nagare.throwable.ExResolveFunc;
-import com.nagare.throwable.ThrowableFunc;
-import com.nagare.throwable.ThrowableSpender;
+import com.nagare.throwable.Hoge;
 
 /**
  * @author ken.murayama
@@ -35,33 +32,18 @@ public interface Saver<A> {
         s.accept(get());
     }
 
-    default <E extends Exception> ExHandler<E> doneTry(
-            ThrowableSpender<? super A, E> c) {
-        Objects.requireNonNull(c);
-        try {
-            c.accept(get());
-            return () -> Optional.empty();
-        } catch (Exception e) {
-            @SuppressWarnings("unchecked")
-            Optional<E> oe = Optional.of((E) e); // is type safe
-            return () -> oe;
-        }
-    }
-
-    default <B, E extends Exception> ExResolveFunc<E, B> thenTry(
-            ThrowableFunc<? super A, B, E> f) {
-        Objects.requireNonNull(f);
-        try {
-            B res = f.apply(get());
-            return c -> Optional.of(res);
-        } catch (Exception e) {
-            @SuppressWarnings("unchecked")
-            E ex = (E) e; // is type safe
-            return c -> {
-                c.accept(ex);
-                return Optional.empty();
-            };
-        }
+    default <E extends Exception> Hoge<A, E> ifCatch(
+            Consumer<E> handler) {
+        Objects.requireNonNull(handler);
+        return s -> {
+            try {
+                s.accept(get());
+            } catch (Exception e) {
+                @SuppressWarnings("unchecked")
+                E typedE = (E) e; // is type safe
+                handler.accept(typedE);
+            }
+        };
     }
 
     default Supplier<A> origin() {

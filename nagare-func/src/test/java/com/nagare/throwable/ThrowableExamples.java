@@ -5,55 +5,43 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.nagare.Do;
-
 public class ThrowableExamples {
 
     @Test
-    public void test3() {
-        Do.when("test9.csv").doneTry(this::raiseConIOException)
-                .ifCatch(System.out::println);
-    }
-
-    private void raiseConIOException(String s) throws IOException {
-        throw new IOException("this is test ex for input :".concat(s));
-    }
-
-    private Integer raiseFuncIOException(String s) throws IOException {
-        if (s.equals("yama")) {
-            return 1;
-        }
-        throw new IOException("this is test ex for input :".concat(s));
-    }
-
-    @Test
-    public void test7() {
-        Optional<Integer> i = Do.when("yama")
-                .thenTry(this::raiseFuncIOException)
-                .ifCatch(System.out::println);
-        i.ifPresent(System.out::println);
-    }
-
-    @Test
-    public void test9() {
-        Do.when("yama").thenTry(this::raiseFuncIOException)
-                .ifCatch(System.out::println).ifPresent(System.out::println);
-    }
-
-    @Test
-    public void test8() {
+    public void usually_try_style() {
         try {
-            Integer i = raiseFuncIOException("yama");
+            Integer i = raiseEx2("nagare");
             System.out.println(i);
         } catch (IOException e) {
             System.out.println(e);
         }
-
     }
 
     @Test
-    public void test4() {
-        Integer.valueOf("sy");
+    public void test1() {
+        Optional<Integer> i = Try.throwable(this::raiseEx2)
+                .doIfCatch(System.out::println)
+                .by("nagare");
+        i.ifPresent(System.out::println);
     }
 
+    @Test
+    public void test3() {
+        Try.when("nagare").ifCatch(System.out::println)
+                .done(this::raiseEx1);
+    }
+
+    private void raiseEx1(String s) throws IOException {
+        if (s.equals("nagare")) {
+            System.out.println("0");
+        }
+        throw new IOException("this is test ex for input :".concat(s));
+    }
+
+    private Integer raiseEx2(String s) throws IOException {
+        if (s.equals("nagare")) {
+            return 0;
+        }
+        throw new IOException("this is test ex for input :".concat(s));
+    }
 }

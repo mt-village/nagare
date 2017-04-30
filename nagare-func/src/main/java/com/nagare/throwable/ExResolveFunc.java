@@ -1,12 +1,13 @@
 package com.nagare.throwable;
 
 import java.util.Optional;
-import java.util.function.Consumer;
+
+import com.nagare.base.Spender;
 
 /**
  * @author ken.murayama
  *
  */
-public interface ExResolveFunc<E extends Exception, A> {
-    Optional<A> ifCatch(Consumer<E> s);
+public interface ExResolveFunc<A, E extends Exception> {
+    Optional<A> ifCatch(Spender<E> handler);
 }
