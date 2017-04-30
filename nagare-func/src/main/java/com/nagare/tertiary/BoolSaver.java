@@ -11,7 +11,7 @@ public interface BoolSaver {
     Boolean get();
 
     default <A> Else<A> then(A a1) {
-        return (A a2) -> get() ?  a1 : a2;
+        return (A a2) -> get() ? a1 : a2;
     }
 
     default <A> ElseSaver<A> then(Supplier<A> a1) {

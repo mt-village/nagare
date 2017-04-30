@@ -5,13 +5,16 @@ package com.nagare.parts;
  *
  */
 public class Coffee {
-    public  enum Taste {GOOD, BAD, TERRIBLE}
+    public enum Taste {
+        GOOD, BAD, TERRIBLE
+    }
 
     private final double amount;
     private final Taste taste;
 
     /**
-     * @param amount : in milliliter
+     * @param amount
+     *            : in milliliter
      * @param taste
      */
     public Coffee(double amount, Taste taste) {

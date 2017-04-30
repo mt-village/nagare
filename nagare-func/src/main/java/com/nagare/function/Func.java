@@ -32,12 +32,14 @@ public interface Func<X, A> {
         return (X x, Y y) -> ImmutablePair.of(apply(x), f.apply(y));
     }
 
-    default <Y, B> BiFunc<X, Y, B> then(BiFunc<? super A, ? super Y, ? extends B> after) {
+    default <Y, B> BiFunc<X, Y, B> then(
+            BiFunc<? super A, ? super Y, ? extends B> after) {
         Objects.requireNonNull(after);
         return (X x, Y y) -> after.apply(apply(x), y);
     }
 
-    default <Y, W> BiFunc<Y, X, W> thenR(BiFunc<? super Y, ? super A, ? extends W> after) {
+    default <Y, W> BiFunc<Y, X, W> thenR(
+            BiFunc<? super Y, ? super A, ? extends W> after) {
         Objects.requireNonNull(after);
         return (Y y, X x) -> after.apply(y, apply(x));
     }

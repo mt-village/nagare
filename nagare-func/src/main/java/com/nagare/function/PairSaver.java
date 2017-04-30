@@ -32,7 +32,8 @@ public interface PairSaver<L, R> {
         return () -> bf.apply(p.getLeft(), p.getRight());
     }
 
-    default <L2, R2> PairSaver<L2, R2> then(PairFunc <? super L, ? super R, L2, R2> pf) {
+    default <L2, R2> PairSaver<L2, R2> then(
+            PairFunc<? super L, ? super R, L2, R2> pf) {
         Objects.requireNonNull(pf);
         Pair<L, R> p = get();
         return () -> pf.apply(p.getLeft(), p.getRight());

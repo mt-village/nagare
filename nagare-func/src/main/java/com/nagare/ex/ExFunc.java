@@ -11,10 +11,14 @@
  */
 package com.nagare.ex;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
 /**
  * @author kenichiro.murayama
  *
  */
-public interface ExFunc {
+public interface ExFunc<E extends Exception, A> {
 
+    Optional<A> handler(Consumer<E> s);
 }

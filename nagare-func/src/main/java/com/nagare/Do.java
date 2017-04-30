@@ -12,11 +12,11 @@ import com.nagare.function.Saver;
  *
  */
 public class Do {
-    public static <X, A> Func<X, A>  first(Func<X, A> f) {
+    public static <X, A> Func<X, A> first(Func<X, A> f) {
         return f;
     }
 
-    public static <X, Y, A> BiFunc<X, Y, A>  first(BiFunc<X, Y, A> f) {
+    public static <X, Y, A> BiFunc<X, Y, A> first(BiFunc<X, Y, A> f) {
         return f;
     }
 

@@ -1,6 +1,5 @@
 package com.nagare.ex;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -16,20 +15,8 @@ public class Hoge {
 
     @Test
     public void test3() {
-        Do.when("test9.csv").tried(this::raiseConIOException).handleEx(this::handle);
-    }
-
-    @Test
-    public void test5() {
-        try {
-            new File("test9.csv").getCanonicalFile();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void handle(IOException e) {
-        System.out.println(e.getMessage());
+        Do.when("test9.csv").doneTry(this::raiseConIOException)
+                .handleEx(System.out::println);
     }
 
     private void raiseConIOException(String s) throws IOException {
@@ -44,10 +31,28 @@ public class Hoge {
     }
 
     @Test
-    public void test6() {
-        Optional<Integer> s = Do.when("test.csv")
-                .doTry(this::raiseFuncIOException)
-                .handleEx(this::handle);
+    public void test7() {
+        Optional<Integer> i = Do.when("yama")
+                .thenTry(this::raiseFuncIOException)
+                .handler(System.out::println);
+        i.ifPresent(System.out::println);
+    }
+
+    @Test
+    public void test9() {
+        Do.when("yama").thenTry(this::raiseFuncIOException)
+                .handler(System.out::println).ifPresent(System.out::println);
+    }
+
+    @Test
+    public void test8() {
+        try {
+            Integer i = raiseFuncIOException("yama");
+            System.out.println(i);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
     }
 
     @Test
