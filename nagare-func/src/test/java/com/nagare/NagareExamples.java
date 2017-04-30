@@ -2,7 +2,7 @@ package com.nagare;
 
 import org.junit.Test;
 
-import com.nagare.base.Saver;
+import com.nagare.base.BiFunc;
 import com.nagare.parts.Coffee;
 import com.nagare.parts.CoffeeAddict;
 import com.nagare.parts.Dripper;
@@ -19,45 +19,53 @@ import com.nagare.parts.WholeCoffeeBeans;
  */
 public class NagareExamples {
 
+    private CoffeeAddict saya = new CoffeeAddict();
+
     @Test
-    public void easygoing() {
+    public void usually_easygoing_style() { // for explain what to do
         WholeCoffeeBeans wholeBeans = WholeCoffeeBeans.inGrams(50);
         GroundCoffeeBeans groundBeans = Mill.grind(wholeBeans);
         Water water = Water.inMilliliters(500);
         HotWater hotWater = Kettle.boil(water);
         Coffee coffee = Dripper.drip(groundBeans, hotWater);
-        CoffeeAddict saya = new CoffeeAddict();
         saya.drink(coffee);
     }
 
     @Test
-    public void impatient() {
+    public void usually_impatient_style() { // to confirm nested-code is un-readable
         new CoffeeAddict()
                 .drink(Dripper.drip(Mill.grind(WholeCoffeeBeans.inGrams(50)),
                         Kettle.boil(Water.inMilliliters(500))));
     }
 
     @Test
-    public void nagare_prepositive() {
-        CoffeeAddict saya = new CoffeeAddict();
+    public void nagare_done_style() {
         Do.when(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500))
                 .then(Do.first(Mill::grind).and(Kettle::boil))
-                .then(Dripper::drip).done(saya::drink);
+                .then(Dripper::drip)
+                .done(saya::drink);
     }
 
     @Test
-    public void nagare_logic_and_exec() {
-        Saver<Coffee> brewCoffee = Do
-                .when(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500))
-                .then(Do.first(Mill::grind).and(Kettle::boil))
-                .then(Dripper::drip);
-        CoffeeAddict saya = new CoffeeAddict();
-        saya.drink(brewCoffee.let());
+    public void nagare_func_style() {
+        Coffee coffee = Do
+                .first(Do.first(Mill::grind).and(Kettle::boil))
+                .then(Dripper::drip)
+                .by(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500));
+        saya.drink(coffee);
     }
 
+    @Test
+    public void nagare_logic_and_exec_style() {
+        BiFunc<WholeCoffeeBeans, Water, Coffee> brewCoffee = Do
+                .first(Do.first(Mill::grind).and(Kettle::boil))
+                .then(Dripper::drip);
+        saya.drink(brewCoffee.by(WholeCoffeeBeans.inGrams(50), Water.inMilliliters(500)));
+    }
+
+    // optional
     @Test
     public void hotWater_prepered_prepositive() {
-        CoffeeAddict saya = new CoffeeAddict();
         Do.when(WholeCoffeeBeans.inGrams(50), HotWater.inMilliliters(500))
                 .then(Mill::grind)
                 .then(Dripper::drip)
@@ -66,7 +74,6 @@ public class NagareExamples {
 
     @Test
     public void groundCoffeeBeans_prepered_prepositive() {
-        CoffeeAddict saya = new CoffeeAddict();
         Do.when(GroundCoffeeBeans.inGrams(50), Water.inMilliliters(500))
                 .thenR(Kettle::boil)
                 .then(Dripper::drip)
@@ -74,8 +81,7 @@ public class NagareExamples {
     }
 
     @Test
-    public void hotWater_and_groundCoffeeBeans_prepered_prepositive() {
-        CoffeeAddict saya = new CoffeeAddict();
+    public void all_prepered_prepositive() {
         Do.when(GroundCoffeeBeans.inGrams(50), HotWater.inMilliliters(500))
                 .then(Dripper::drip)
                 .done(saya::drink);

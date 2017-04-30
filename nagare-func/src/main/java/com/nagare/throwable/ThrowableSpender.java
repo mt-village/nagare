@@ -1,10 +1,10 @@
-package com.nagare.ex;
+package com.nagare.throwable;
 
 /**
  * @author ken.murayama
  *
  */
 @FunctionalInterface
-public interface ExSpender<T, E extends Exception> {
+public interface ThrowableSpender<T, E extends Exception> {
     void accept(T t) throws E;
 }

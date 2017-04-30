@@ -1,4 +1,4 @@
-package com.nagare.ex;
+package com.nagare.throwable;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.nagare.Do;
 
-public class ExExamples {
+public class ThrowableExamples {
 
     @Test
     public void test3() {

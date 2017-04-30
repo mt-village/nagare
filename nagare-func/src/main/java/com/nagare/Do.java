@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.nagare.base.BiFunc;
 import com.nagare.base.Func;
+import com.nagare.base.PairFunc;
 import com.nagare.base.PairSaver;
 import com.nagare.base.Saver;
 
@@ -17,6 +18,11 @@ public class Do {
     }
 
     public static <X, Y, A> BiFunc<X, Y, A> first(BiFunc<X, Y, A> f) {
+        return f;
+    }
+
+    public static <X, Y, L, R> PairFunc<X, Y, L, R> first(
+            PairFunc<X, Y, L, R> f) {
         return f;
     }
 

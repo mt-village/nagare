@@ -1,4 +1,4 @@
-package com.nagare.ex;
+package com.nagare.throwable;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -9,7 +9,8 @@ import java.util.function.Consumer;
  *
  */
 @FunctionalInterface
-public interface ExResolver<E extends Exception> {
+public interface ExHandler<E extends Exception> {
+
     Optional<E> get();
 
     default void ifCatch(Consumer<E> handle) {
