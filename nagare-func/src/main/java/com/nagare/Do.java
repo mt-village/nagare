@@ -2,10 +2,10 @@ package com.nagare;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-import com.nagare.function.BiFunc;
-import com.nagare.function.Func;
-import com.nagare.function.PairSaver;
-import com.nagare.function.Saver;
+import com.nagare.base.BiFunc;
+import com.nagare.base.Func;
+import com.nagare.base.PairSaver;
+import com.nagare.base.Saver;
 
 /**
  * @author ken.murayama

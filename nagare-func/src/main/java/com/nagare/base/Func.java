@@ -1,4 +1,4 @@
-package com.nagare.function;
+package com.nagare.base;
 
 import java.util.Objects;
 import java.util.function.Function;

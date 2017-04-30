@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
-public class IfTest {
+public class IfExamples {
 
     @Test
     public void test() {

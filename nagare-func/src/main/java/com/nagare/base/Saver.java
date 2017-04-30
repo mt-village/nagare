@@ -1,13 +1,13 @@
-package com.nagare.function;
+package com.nagare.base;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import com.nagare.ex.ExResolveFunc;
+import com.nagare.ex.ExResolver;
+import com.nagare.ex.ExSpender;
 import com.nagare.ex.ExFunc;
-import com.nagare.ex.ExSaver;
-import com.nagare.ex.ThrowableConsumer;
-import com.nagare.ex.ThrowableFunction;
 
 /**
  * @author ken.murayama
@@ -35,8 +35,8 @@ public interface Saver<A> {
         s.accept(get());
     }
 
-    default <E extends Exception> ExSaver<E> doneTry(
-            ThrowableConsumer<? super A, E> c) {
+    default <E extends Exception> ExResolver<E> doneTry(
+            ExSpender<? super A, E> c) {
         Objects.requireNonNull(c);
         try {
             c.accept(get());
@@ -48,8 +48,8 @@ public interface Saver<A> {
         }
     }
 
-    default <B, E extends Exception> ExFunc<E, B> thenTry(
-            ThrowableFunction<? super A, B, E> f) {
+    default <B, E extends Exception> ExResolveFunc<E, B> thenTry(
+            ExFunc<? super A, B, E> f) {
         Objects.requireNonNull(f);
         try {
             B res = f.apply(get());

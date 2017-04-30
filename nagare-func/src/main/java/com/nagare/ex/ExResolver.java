@@ -9,10 +9,10 @@ import java.util.function.Consumer;
  *
  */
 @FunctionalInterface
-public interface ExSaver<E extends Exception> {
+public interface ExResolver<E extends Exception> {
     Optional<E> get();
 
-    default void handleEx(Consumer<E> handle) {
+    default void ifCatch(Consumer<E> handle) {
         Objects.requireNonNull(handle);
         get().ifPresent(handle);
     }

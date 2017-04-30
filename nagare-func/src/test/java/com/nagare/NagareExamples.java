@@ -2,7 +2,7 @@ package com.nagare;
 
 import org.junit.Test;
 
-import com.nagare.function.Saver;
+import com.nagare.base.Saver;
 import com.nagare.parts.Coffee;
 import com.nagare.parts.CoffeeAddict;
 import com.nagare.parts.Dripper;
@@ -17,7 +17,7 @@ import com.nagare.parts.WholeCoffeeBeans;
  * @author ken.murayama
  *
  */
-public class Examples {
+public class NagareExamples {
 
     @Test
     public void easygoing() {
@@ -53,5 +53,31 @@ public class Examples {
                 .then(Dripper::drip);
         CoffeeAddict saya = new CoffeeAddict();
         saya.drink(brewCoffee.let());
+    }
+
+    @Test
+    public void hotWater_prepered_prepositive() {
+        CoffeeAddict saya = new CoffeeAddict();
+        Do.when(WholeCoffeeBeans.inGrams(50), HotWater.inMilliliters(500))
+                .then(Mill::grind)
+                .then(Dripper::drip)
+                .done(saya::drink);
+    }
+
+    @Test
+    public void groundCoffeeBeans_prepered_prepositive() {
+        CoffeeAddict saya = new CoffeeAddict();
+        Do.when(GroundCoffeeBeans.inGrams(50), Water.inMilliliters(500))
+                .thenR(Kettle::boil)
+                .then(Dripper::drip)
+                .done(saya::drink);
+    }
+
+    @Test
+    public void hotWater_and_groundCoffeeBeans_prepered_prepositive() {
+        CoffeeAddict saya = new CoffeeAddict();
+        Do.when(GroundCoffeeBeans.inGrams(50), HotWater.inMilliliters(500))
+                .then(Dripper::drip)
+                .done(saya::drink);
     }
 }
