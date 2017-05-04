@@ -10,8 +10,8 @@ import java.util.Objects;
 public interface ExSaver<A> {
     A get();
 
-    default <E extends Exception> ExResolver<A, E> ifCatch(
-            ExSpender<E> handler) {
+    default <E extends Exception> ExSpender<A, E> ifCatch(
+            ExHandler<E> handler) {
         Objects.requireNonNull(handler);
         return s -> {
             try {
@@ -19,7 +19,7 @@ public interface ExSaver<A> {
             } catch (Exception e) {
                 @SuppressWarnings("unchecked")
                 E typedE = (E) e; // is type safe
-                handler.handleEx(typedE);
+                handler.handle(typedE);
             }
         };
     }

@@ -6,7 +6,7 @@ package com.nagare.throwable;
  */
 public class Try {
     public static <X, A, E extends Exception> ThrowableFunc<X, A, E> throwable(
-            ThrowableFunc<X, A, E> f) { //test
+            ThrowableFunc<X, A, E> f) {
         return f;
     }
 

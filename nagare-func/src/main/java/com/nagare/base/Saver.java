@@ -1,10 +1,7 @@
 package com.nagare.base;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import com.nagare.throwable.ExResolver;
 
 /**
  * @author ken.murayama
