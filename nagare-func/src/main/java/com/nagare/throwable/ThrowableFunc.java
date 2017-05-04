@@ -11,16 +11,16 @@ import com.nagare.base.Spender;
  */
 @FunctionalInterface
 public interface ThrowableFunc<X, A, E extends Exception> {
-    A apply(X t) throws E;
+    A apply(X x) throws E;
 
-    default Func<X, Optional<A>> doIfCatch(Spender<E> handler) {
+    default Func<X, Optional<A>> ifCatch(ExSpender<E> handler) {
         return x -> {
             try {
                 return Optional.of(apply(x));
             } catch (Exception e) {
                 @SuppressWarnings("unchecked")
               E typedE = (E) e; // is type safe
-              handler.accept(typedE);
+              handler.handleEx(typedE);
             }
             return Optional.empty();
         };

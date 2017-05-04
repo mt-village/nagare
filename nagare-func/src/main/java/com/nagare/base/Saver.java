@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.nagare.throwable.Hoge;
+import com.nagare.throwable.ExResolver;
 
 /**
  * @author ken.murayama
@@ -30,20 +30,6 @@ public interface Saver<A> {
 
     default void done(Spender<? super A> s) {
         s.accept(get());
-    }
-
-    default <E extends Exception> Hoge<A, E> ifCatch(
-            Consumer<E> handler) {
-        Objects.requireNonNull(handler);
-        return s -> {
-            try {
-                s.accept(get());
-            } catch (Exception e) {
-                @SuppressWarnings("unchecked")
-                E typedE = (E) e; // is type safe
-                handler.accept(typedE);
-            }
-        };
     }
 
     default Supplier<A> origin() {

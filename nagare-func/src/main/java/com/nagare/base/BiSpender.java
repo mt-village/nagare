@@ -10,7 +10,6 @@ import java.util.function.BiConsumer;
  */
 @FunctionalInterface
 public interface BiSpender<X, Y> {
-
     void accept(X x, Y y);
 
     /**

@@ -5,6 +5,6 @@ package com.nagare.throwable;
  *
  */
 @FunctionalInterface
-public interface Hoge<A, E extends Exception> {
+public interface ExResolver<A, E extends Exception> {
     void done(ThrowableSpender<? super A, E> s);
 }

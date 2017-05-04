@@ -20,7 +20,7 @@ public class ThrowableExamples {
     @Test
     public void test1() {
         Optional<Integer> i = Try.throwable(this::raiseEx2)
-                .doIfCatch(System.out::println)
+                .ifCatch(System.out::println)
                 .by("nagare");
         i.ifPresent(System.out::println);
     }
