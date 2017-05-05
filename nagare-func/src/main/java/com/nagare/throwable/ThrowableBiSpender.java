@@ -1,21 +1,19 @@
 package com.nagare.throwable;
 
-import java.util.Objects;
+import com.nagare.base.BiSpender;
 
 /**
  * @author ken.murayama
  *
  */
 @FunctionalInterface
-public interface ExSaver<A> {
-    A get();
+public interface ThrowableBiSpender<X, Y, E extends Exception> {
+    void accept(X x, Y y) throws E;
 
-    default <E extends Exception> ExSpender<A, E> ifCatch(
-            ExHandler<E> handler) {
-        Objects.requireNonNull(handler);
-        return s -> {
+    default BiSpender<X, Y> ifCatch(ExHandler<E> handler) {
+        return (X x, Y y) -> {
             try {
-                s.accept(get());
+                accept(x, y);
             } catch (Exception e) {
                 @SuppressWarnings("unchecked")
                 E typedE = (E) e; // is type safe

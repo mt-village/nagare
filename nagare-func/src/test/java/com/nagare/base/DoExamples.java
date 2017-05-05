@@ -1,5 +1,6 @@
-package com.nagare;
+package com.nagare.base;
 
+import com.nagare.base.Do;
 import org.junit.Test;
 
 import com.nagare.base.BiFunc;
@@ -17,7 +18,7 @@ import com.nagare.parts.WholeCoffeeBeans;
  * @author ken.murayama
  *
  */
-public class NagareExamples {
+public class DoExamples {
 
     private CoffeeAddict saya = new CoffeeAddict();
 

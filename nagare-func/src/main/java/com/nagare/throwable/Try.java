@@ -10,7 +10,18 @@ public class Try {
         return f;
     }
 
-    public static <A> ExSaver<A> when(A a) {
-        return () -> a;
+    public static <X, E extends Exception> ThrowableSpender<X, E> throwable(
+            ThrowableSpender<X, E> s) {
+        return s;
+    }
+
+    public static <X, Y, A, E extends Exception> ThrowableBiFunc<X, Y, A, E> throwable(
+            ThrowableBiFunc<X, Y, A, E> f) {
+        return f;
+    }
+
+    public static <X, Y, E extends Exception> ThrowableBiSpender<X, Y, E> throwable(
+            ThrowableBiSpender<X, Y, E> s) {
+        return s;
     }
 }
