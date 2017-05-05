@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
  *
  */
 @FunctionalInterface
-public interface BiFunc<X, Y, A> {
+public interface BiFunc<X, Y, A> { // test
 
     A apply(X x, Y y);
 
