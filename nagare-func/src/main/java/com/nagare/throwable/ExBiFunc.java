@@ -2,6 +2,10 @@ package com.nagare.throwable;
 
 import java.util.Optional;
 
+/**
+ * @author ken.murayama
+ *
+ */
 @FunctionalInterface
 public interface ExBiFunc<X, Y, A> {
     Optional<A> apply(X x, Y y);

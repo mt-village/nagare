@@ -5,7 +5,7 @@ package com.nagare.tertiary;
  *
  */
 public class If {
-    public static BoolSaver correct(Boolean b) {
+    public static BoolSaver isTrue(Boolean b) {
         return () -> b;
     }
 }

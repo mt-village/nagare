@@ -2,6 +2,10 @@ package com.nagare.throwable;
 
 import java.util.Optional;
 
+/**
+ * @author ken.murayama
+ *
+ */
 @FunctionalInterface
 public interface ThrowableBiFunc<X, Y, A, E extends Exception> {
     A apply(X x, Y y) throws E;
