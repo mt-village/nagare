@@ -5,6 +5,10 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
+/**
+ * @author ken.murayama
+ *
+ */
 public class IfExamples {
 
     @Test

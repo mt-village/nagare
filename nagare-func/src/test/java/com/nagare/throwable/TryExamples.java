@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+/**
+ * @author ken.murayama
+ *
+ */
 public class TryExamples {
 
     @Test
